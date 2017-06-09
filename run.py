@@ -8,6 +8,8 @@ class Authenticate(BasicAuth):
     def check_auth(self, username, password, allowed_roles, resource,
                    method):
         if resource == 'user' and method == 'GET':
+            # when making a GET request to the user branch, check the username
+            # and password against the database
             user = app.data.driver.db['user']
             user = user.find_one({'username': username, 'password': password})
             if user:
